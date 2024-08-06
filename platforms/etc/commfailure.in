@@ -14,6 +14,6 @@ MSG="$HOSTNAME Communications with UPS $1 lost"
    echo " "
    echo "$MSG"
    echo " "
-   @sbindir@/apcaccess status
+   /sbin/apcaccess status
 ) | $APCUPSD_MAIL -s "$MSG" $SYSADMIN
 exit 0

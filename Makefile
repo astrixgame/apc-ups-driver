@@ -14,4 +14,5 @@ configure: autoconf/configure.in autoconf/aclocal.m4
 all: configure-usb $(SUBDIRS)
 
 configure-usb:
-	./configure --enable-usb
+	./configure
+

@@ -95,6 +95,17 @@ all-uninstall:
 # Typical clean target: Remove all objects and dependency files.
 .PHONY: clean
 clean:
+	-rm -f config.status
+	-rm -f $(topdir)/src/apcaccess
+	-rm -f $(topdir)/src/apctest
+	-rm -f $(topdir)/src/apcupsd
+	-rm -f $(topdir)/src/smtp
+	-rm -f $(topdir)/src/*.o
+	-rm -f $(topdir)/platforms/*.o
+	-rm -f $(topdir)/*.log
+	-rm -f $(topdir)/*.status
+	-rm -f $(topdir)/include/config.h
+	-rm -f $(topdir)/config.out
 	$(V)find . -depth \
 	  \( -name $(OBJDIR) -o -name $(DEPDIR) -o -name \*.a \) \
           -exec $(ECHO) "  CLEAN" \{\} \; -exec $(RMF) \{\} \;

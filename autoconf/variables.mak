@@ -67,7 +67,7 @@ EXE =
 
 # Libraries
 APCLIBS = $(topdir)/src/lib/libapc.a $(if $(WIN32),$(topdir)/src/win32/compat/libwin32compat.a)
-APCDRVLIBS =  $(topdir)/src/drivers/libdrivers.a $(topdir)/src/drivers/apcsmart/libapcsmartdrv.a $(topdir)/src/drivers/dumb/libdumbdrv.a $(topdir)/src/drivers/usb/libusbdrv.a $(topdir)/src/drivers/net/libnetdrv.a $(topdir)/src/drivers/snmplite/libsnmplitedrv.a $(topdir)/src/drivers/pcnet/libpcnetdrv.a $(topdir)/src/drivers/modbus/libmodbusdrv.a
+APCDRVLIBS =  $(topdir)/src/drivers/libdrivers.a $(topdir)/src/drivers/apcsmart/libapcsmartdrv.a $(topdir)/src/drivers/dumb/libdumbdrv.a $(topdir)/src/drivers/net/libnetdrv.a $(topdir)/src/drivers/snmplite/libsnmplitedrv.a $(topdir)/src/drivers/pcnet/libpcnetdrv.a $(topdir)/src/drivers/modbus/libmodbusdrv.a
 DRVLIBS = -lpthread 
 X_LIBS = 
 X_EXTRA_LIBS = 
@@ -90,14 +90,14 @@ BG =
 # Driver and package enable flags
 SMARTDRV   := apcsmart
 DUMBDRV    := dumb
-USBDRV     := usb
+USBDRV     := 
 NETDRV     := net
 PCNETDRV   := pcnet
 MODBUSDRV  := modbus
 MODBUSUSB  := 
 SNMPLTDRV  := snmplite
 TESTDRV    := 
-USBTYPE    := linux
+USBTYPE    := 
 CGIDIR     := 
 USBHIDDIR  := 
 GAPCMON    := 
