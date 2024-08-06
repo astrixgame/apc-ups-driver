@@ -1346,7 +1346,6 @@ GENERATE_FILES="\
    platforms/etc/offbattery \
    platforms/etc/onbattery \
    platforms/etc/apcupsd.conf \
-   examples/safe.apccontrol \
    $DFILES"
 
 if test "$needlibusb"x = "true"x
@@ -1362,7 +1361,6 @@ fi
 
 AC_OUTPUT([ ${GENERATE_FILES} ], [])
 
-chmod 755 examples/safe.apccontrol
 $MAKE clean
 
 #

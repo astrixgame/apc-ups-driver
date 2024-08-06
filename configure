@@ -13409,7 +13409,6 @@ GENERATE_FILES="\
    platforms/etc/offbattery \
    platforms/etc/onbattery \
    platforms/etc/apcupsd.conf \
-   examples/safe.apccontrol \
    $DFILES"
 
 if test "$needlibusb"x = "true"x
@@ -14671,8 +14670,6 @@ if test -n "$ac_unrecognized_opts" && test "$enable_option_checking" != no; then
 $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
 fi
 
-
-chmod 755 examples/safe.apccontrol
 $MAKE clean
 
 #
