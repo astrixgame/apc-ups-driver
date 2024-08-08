@@ -1,12 +1,10 @@
 topdir:=..
 
-SUBDIRS = lib drivers $(CGIDIR) $(USBHIDDIR) $(GAPCMON) $(APCAGENT) $(WIN32)
+SUBDIRS = lib drivers $(USBHIDDIR) $(WIN32)
 include $(topdir)/autoconf/targets.mak
 
 # Force dirs that needs libapc.a to build after lib_DIR
 # Necessary for parallel make since they link against libapc.a
-cgi_DIR: lib_DIR
-apcagent_DIR: lib_DIR
 win32_DIR: lib_DIR
 
 # CGI requires win32, but only if building for win32

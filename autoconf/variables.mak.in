@@ -78,8 +78,6 @@ OBJCFLAGS = $(CPPFLAGS) $(CFLAGS)
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 LIBGD = @GD_LIBS@
-GAPCMON_CFLAGS = @GAPCMON_CFLAGS@
-GAPCMON_LIBS = @GAPCMON_LIBS@
 LIBEXTRAOBJ = @LIBEXTRAOBJ@
 RST2HTMLOPTS = --field-name-limit=0 --generator --time --no-footnote-backlinks --record-dependencies=$(df).d
 RST2PDFOPTS = --no-footnote-backlinks --real-footnotes
@@ -98,8 +96,6 @@ SNMPLTDRV  := @SNMPLITE_DRIVER@
 TESTDRV    := @TEST_DRIVER@
 USBTYPE    := @USB_TYPE@
 USBHIDDIR  := @LIBUSBHID@
-GAPCMON    := @GAPCMON@
-APCAGENT   := @APCAGENT@
 WIN32      := @WIN32@
 
 OBJDIR = .obj

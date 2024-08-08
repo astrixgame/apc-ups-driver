@@ -64,7 +64,7 @@
 /* #undef HAVE_FUNC_GETHOSTBYNAME_R_5 */
 
 /* Define for 6 argument version of gethostbyname_r */
-#define HAVE_FUNC_GETHOSTBYNAME_R_6 /**/
+#define HAVE_FUNC_GETHOSTBYNAME_R_6 1
 
 /* Define if you have getoptlong */
 #define HAVE_GETOPTLONG /**/

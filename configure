@@ -661,10 +661,6 @@ SYSCONFDIR
 GD_LIBS
 LD
 MAKE
-APCAGENT
-GAPCMON
-GAPCMON_LIBS
-GAPCMON_CFLAGS
 PKG_CONFIG
 NISIP
 LIBUSBHID
@@ -801,8 +797,6 @@ enable_pcnet
 enable_modbus_usb
 enable_modbus
 with_nisip
-enable_gapcmon
-enable_apcagent
 with_distname
 enable_install_distdir
 with_nologin
@@ -829,9 +823,7 @@ CC
 CFLAGS
 CPP
 XMKMF
-PKG_CONFIG
-GAPCMON_CFLAGS
-GAPCMON_LIBS'
+PKG_CONFIG'
 
 
 # Initialize some variables set by options.
@@ -1488,8 +1480,6 @@ Optional Features:
 
   --enable-modbus         Compile MODBUS driver code (default)
   --disable-modbus        No MODBUS driver
-  --enable-gapcmon        Build GTK/GUI front-end to apcupsd (default=no)
-  --enable-apcagent       Build menubar app for Mac OS X (default=no)
   --enable-install-distdir
                           Install distribution
 
@@ -1528,10 +1518,6 @@ Some influential environment variables:
   CPP         C preprocessor
   XMKMF       Path to xmkmf, Makefile generator for X Window System
   PKG_CONFIG  path to pkg-config utility
-  GAPCMON_CFLAGS
-              C compiler flags for GAPCMON, overriding pkg-config
-  GAPCMON_LIBS
-              linker flags for GAPCMON, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -10522,9 +10508,6 @@ if test "${enable_all+set}" = set; then
       enable_pcnet=yes
       enable_modbus=yes
       enable_modbus_usb=yes
-      if test "$host_os" != "mingw32" ; then
-         enable_gapcmon=yes
-      fi
    fi
 fi
 
@@ -11067,11 +11050,6 @@ if test "${with_nisip+set}" = set; then
   withval=$with_nisip; NISIP="$withval";
 fi
 
-
-GAPCMON=
-GAPCMON_ENABLED=no
-
-
 if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
 	if test -n "$ac_tool_prefix"; then
   # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
@@ -11186,160 +11164,6 @@ $as_echo "no" >&6; }
 	fi
 
 fi
-# Check whether --enable-gapcmon was given.
-if test "${enable_gapcmon+set}" = set; then
-  enableval=$enable_gapcmon;  if test "$enableval" = "yes" ; then
-      GAPCMON=gapcmon
-      GAPCMON_ENABLED=yes
-
-
-pkg_failed=no
-{ $as_echo "$as_me:$LINENO: checking for GAPCMON" >&5
-$as_echo_n "checking for GAPCMON... " >&6; }
-
-if test -n "$PKG_CONFIG"; then
-    if test -n "$GAPCMON_CFLAGS"; then
-        pkg_cv_GAPCMON_CFLAGS="$GAPCMON_CFLAGS"
-    else
-        if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0\"") >&5
-  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); }; then
-  pkg_cv_GAPCMON_CFLAGS=`$PKG_CONFIG --cflags-only-I "gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
-    fi
-else
-	pkg_failed=untried
-fi
-if test -n "$PKG_CONFIG"; then
-    if test -n "$GAPCMON_LIBS"; then
-        pkg_cv_GAPCMON_LIBS="$GAPCMON_LIBS"
-    else
-        if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0\"") >&5
-  ($PKG_CONFIG --exists --print-errors "gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); }; then
-  pkg_cv_GAPCMON_LIBS=`$PKG_CONFIG --libs "gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
-    fi
-else
-	pkg_failed=untried
-fi
-
-
-
-if test $pkg_failed = yes; then
-
-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
-else
-        _pkg_short_errors_supported=no
-fi
-        if test $_pkg_short_errors_supported = yes; then
-	        GAPCMON_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0"`
-        else
-	        GAPCMON_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0"`
-        fi
-	# Put the nasty error message in config.log where it belongs
-	echo "$GAPCMON_PKG_ERRORS" >&5
-
-	{ { $as_echo "$as_me:$LINENO: error: Package requirements (gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0) were not met:
-
-$GAPCMON_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables GAPCMON_CFLAGS
-and GAPCMON_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-" >&5
-$as_echo "$as_me: error: Package requirements (gtk+-2.0 >= 2.4.0 glib-2.0 gthread-2.0 gconf-2.0) were not met:
-
-$GAPCMON_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables GAPCMON_CFLAGS
-and GAPCMON_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-" >&2;}
-   { (exit 1); exit 1; }; }
-elif test $pkg_failed = untried; then
-	{ { $as_echo "$as_me:$LINENO: error: in \`$ac_pwd':" >&5
-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-{ { $as_echo "$as_me:$LINENO: error: The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables GAPCMON_CFLAGS
-and GAPCMON_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://www.freedesktop.org/software/pkgconfig>.
-See \`config.log' for more details." >&5
-$as_echo "$as_me: error: The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables GAPCMON_CFLAGS
-and GAPCMON_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://www.freedesktop.org/software/pkgconfig>.
-See \`config.log' for more details." >&2;}
-   { (exit 1); exit 1; }; }; }
-else
-	GAPCMON_CFLAGS=$pkg_cv_GAPCMON_CFLAGS
-	GAPCMON_LIBS=$pkg_cv_GAPCMON_LIBS
-        { $as_echo "$as_me:$LINENO: result: yes" >&5
-$as_echo "yes" >&6; }
-	:
-fi
-      GAPCMON_CFLAGS="$GAPCMON_CFLAGS -DVERSION=\\\"$VERSION\\\""
-   fi
-fi
-
-
-
-APCAGENT=
-APCAGENT_ENABLED=no
-# Check whether --enable-apcagent was given.
-if test "${enable_apcagent+set}" = set; then
-  enableval=$enable_apcagent;  if test "$enableval" = "yes" ; then
-      case $host in
-      *-*-darwin*)
-         APCAGENT=apcagent
-         APCAGENT_ENABLED=yes
-         ;;
-      *)
-         { { $as_echo "$as_me:$LINENO: error: apcagent can only be built on Mac OS X" >&5
-$as_echo "$as_me: error: apcagent can only be built on Mac OS X" >&2;}
-   { (exit 1); exit 1; }; }
-         ;;
-      esac
-   fi
-else
-  case $host in
-   *-*-darwin*)
-      APCAGENT=apcagent
-      APCAGENT_ENABLED=yes
-      ;;
-   esac
-fi
-
-
-
-
 
     ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
@@ -11644,52 +11468,6 @@ ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
 ac_link='$CC -o conftest$ac_exeext $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS >&5'
 ac_compiler_gnu=$ac_cv_c_compiler_gnu
-
-
-
-case "$ac_cv_func_which_gethostbyname_r" in
-   three)
-
-cat >>confdefs.h <<\_ACEOF
-#define HAVE_FUNC_GETHOSTBYNAME_R_3 /**/
-_ACEOF
-
-   GAPCMON_CFLAGS="$GAPCMON_CFLAGS -DHAVE_FUNC_GETHOSTBYNAME_R_3"
-   ;;
-
-   five)
-
-cat >>confdefs.h <<\_ACEOF
-#define HAVE_FUNC_GETHOSTBYNAME_R_5 /**/
-_ACEOF
-
-   GAPCMON_CFLAGS="$GAPCMON_CFLAGS -DHAVE_FUNC_GETHOSTBYNAME_R_5"
-   ;;
-
-   six)
-
-cat >>confdefs.h <<\_ACEOF
-#define HAVE_FUNC_GETHOSTBYNAME_R_6 /**/
-_ACEOF
-
-   GAPCMON_CFLAGS="$GAPCMON_CFLAGS -DHAVE_FUNC_GETHOSTBYNAME_R_6"
-   ;;
-
-   no)
-
-cat >>confdefs.h <<\_ACEOF
-#define HAVE_FUNC_GETHOSTBYNAME_R_0 /**/
-_ACEOF
-
-   GAPCMON_CFLAGS="$GAPCMON_CFLAGS -DHAVE_FUNC_GETHOSTBYNAME_R_0"
-   ;;
-
-   *)
-   { { $as_echo "$as_me:$LINENO: error: gethostbyname_r is required" >&5
-$as_echo "$as_me: error: gethostbyname_r is required" >&2;}
-   { (exit 1); exit 1; }; }
-   ;;
-esac
 
 if test -n "$GCC"; then
    # Starting with GCC 3.0, you must link C++ programs against either
@@ -13894,8 +13672,6 @@ Configuration on `date`:
   with-libwrap:               ${with_libwrap}
   enable-pthreads:            ${with_pthreads}
   enable-dist-install:        ${with_distdir}
-  enable-gapcmon:             ${GAPCMON_ENABLED}
-  enable-apcagent:            ${APCAGENT_ENABLED}
   " > config.out
 
 cat config.out

@@ -78,8 +78,6 @@ OBJCFLAGS = $(CPPFLAGS) $(CFLAGS)
 LDFLAGS =  -L/usr/local/lib
 LIBS =  -lsupc++
 LIBGD = 
-GAPCMON_CFLAGS =  -DHAVE_FUNC_GETHOSTBYNAME_R_6
-GAPCMON_LIBS = 
 LIBEXTRAOBJ = 
 RST2HTMLOPTS = --field-name-limit=0 --generator --time --no-footnote-backlinks --record-dependencies=$(df).d
 RST2PDFOPTS = --no-footnote-backlinks --real-footnotes
@@ -98,8 +96,6 @@ SNMPLTDRV  := snmplite
 TESTDRV    := 
 USBTYPE    := linux
 USBHIDDIR  := 
-GAPCMON    := 
-APCAGENT   := 
 WIN32      := 
 
 OBJDIR = .obj
