@@ -15,4 +15,3 @@ all: configure-usb $(SUBDIRS)
 
 configure-usb:
 	./configure
-

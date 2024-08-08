@@ -99,7 +99,6 @@ clean:
 	-rm -f $(topdir)/src/apcaccess
 	-rm -f $(topdir)/src/apctest
 	-rm -f $(topdir)/src/apcupsd
-	-rm -f $(topdir)/src/smtp
 	-rm -f $(topdir)/src/*.o
 	-rm -f $(topdir)/platforms/*.o
 	-rm -f $(topdir)/*.log
