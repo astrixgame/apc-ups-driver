@@ -96,7 +96,7 @@ all-uninstall:
 .PHONY: clean
 clean:
 	-rm -f config.status
-	-rm -f $(topdir)/src/apcaccess
+	-rm -f $(topdir)/src/apcinfo
 	-rm -f $(topdir)/src/apctest
 	-rm -f $(topdir)/src/apcupsd
 	-rm -f $(topdir)/src/*.o

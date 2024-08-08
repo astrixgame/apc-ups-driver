@@ -1,13 +1,13 @@
-APCACCESS(8)						  BSD System Manager's Manual						   APCACCESS(8)
+APCINFO(8)						  BSD System Manager's Manual						   APCINFO(8)
 
 NAME
-     apcaccess — retrieve status information from apcupsd(8)
+     apcinfo — retrieve status information from apcupsd(8)
 
 SYNOPSIS
-     apcaccess [-f <config-file>] [-h <host>[:<port>]] [-p <parameter-name>] [-u] [<command>] [<host>[:<port>]]
+     apcinfo [-f <config-file>] [-h <host>[:<port>]] [-p <parameter-name>] [-u] [<command>] [<host>[:<port>]]
 
 DESCRIPTION
-     apcaccess is a program which prints out the complete status of most American Power Conversion Corp. (APC) UPSes provided you have the
+     apcinfo is a program which prints out the complete status of most American Power Conversion Corp. (APC) UPSes provided you have the
      apcupsd(8) daemon installed, properly configured and running. It can access status information from any APC UPS attached to the localhost
      or attached to any computer on the network which is running apcuspd in NIS mode.
 
@@ -29,7 +29,7 @@ DESCRIPTION
      :<port>	An optional port number where a hostname argument has been specified. The default is 3551, the official port number assigned by
 		IANA for the apcupsd NIS server.  The default hostname and port are obtained from the configuration file.
 
-     apcaccess uses apcupsd's inbuilt Network Information Server (NIS) -- no relation to Sun's NIS/YP service -- to obtain the current status
+     apcinfo uses apcupsd's inbuilt Network Information Server (NIS) -- no relation to Sun's NIS/YP service -- to obtain the current status
      information from the UPS on the local or remote computer. It is therefore necessary to have the following configuration directives:
 
 	     NETSERVER on
@@ -238,4 +238,4 @@ AUTHORS
    Contributors
      An enormous number of users who have devoted their time and energy to this project -- thanks.
 
-apcaccess v3.14.6						 March 28, 2014						      apcaccess v3.14.6
+apcinfo v3.14.6						 March 28, 2014						      apcinfo v3.14.6

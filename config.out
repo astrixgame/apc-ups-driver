@@ -1,0 +1,34 @@
+
+
+Configuration on Fri Aug  9 00:02:56 BST 2024:
+
+  Host:                       x86_64-unknown-linux-gnu -- debian 12.5
+  Apcupsd version:            3.14.14 (31 May 2016)
+  Source code location:       .
+  Install binaries:           /sbin
+  Install config files:       /etc/apcupsd
+  Install man files:          ${prefix}/share/man
+  Nologin file in:            /etc
+  PID directory:              /var/run
+  LOG dir (events, status)    /var/log
+  LOCK dir (for serial port)  /var/lock
+  Power Fail dir              /etc/apcupsd
+  Compiler:                   g++ 12.2.0-14)
+  Preprocessor flags:          -I/usr/local/include
+  Compiler flags:             -g -O2 -fno-exceptions -fno-rtti -Wall -Wno-unused-result 
+  Linker:                     gcc
+  Linker flags:                -L/usr/local/lib
+  Host and version:           debian 12.5
+  Shutdown Program:           /usr/sbin/shutdown
+  Port/Device:                /dev/ttyS0
+  UPSTYPE                     apcsmart
+  UPSCABLE                    smart
+
+  drivers (no-* are disabled): apcsmart dumb net linux-usb snmp pcnet modbus no-modbus-usb no-test
+
+  enable-nis:                 yes
+  with-nisip:                 0.0.0.0
+  with-libwrap:               
+  enable-pthreads:            yes
+  enable-dist-install:        yes
+  

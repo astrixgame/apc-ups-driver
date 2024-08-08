@@ -171,9 +171,9 @@ AC_DEFINE(HAVE_PTHREADS, [1], [Define if you have pthreads])
 AC_SUBST(PTHREAD_CFLAGS)
 AC_SUBST(PTHREAD_LFLAGS)
 
-APCACCESS=apcaccess
+APCINFO=apcinfo
 APCTEST=apctest
-AC_SUBST(APCACCESS)
+AC_SUBST(APCINFO)
 AC_SUBST(APCTEST)
 
 dnl Now check for programs
@@ -637,7 +637,7 @@ if test "$needlibusb" = "true" ; then
    CPPFLAGS="$CPPFLAGS -I\$(topdir)/src/libusbhid"
 fi
 
-dnl Force NIS to enabled since libnis is required by apcaccess.
+dnl Force NIS to enabled since libnis is required by apcinfo.
 dnl Users may still disable NIS at runtime in apcupsd.conf.
 AC_DEFINE(HAVE_NISSERVER,, [Define if apcupsd NIS server is being built])
 AC_DEFINE(HAVE_NISLIB,, [Define if apcupsd NIS library is being built])

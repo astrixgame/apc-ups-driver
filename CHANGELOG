@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.2] - 2024-XX-XX
+### Changed
+- Renamed apcaccess to apcinfo (apcinfo, apctest, ...)
+- Edited usage help for apcinfo command and removed useless args
+
 ## [1.0.1] - 2024-09-08
 ### Removed
 - Examples

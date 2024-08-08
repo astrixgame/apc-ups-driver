@@ -226,7 +226,7 @@ void do_device(UPSINFO *ups)
       until the UPS is successfully contacted */
    open_ups(ups);
 
-   /* get all data so apcaccess is happy */
+   /* get all data so apcinfo is happy */
    fillUPS(ups);
 
    while(1)
