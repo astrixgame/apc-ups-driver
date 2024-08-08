@@ -382,7 +382,6 @@ AC_HELP_STRING([--enable-all], [Enable all optional modules])],
       enable_pcnet=yes
       enable_modbus=yes
       enable_modbus_usb=yes
-      enable_cgi=yes
       if test "$host_os" != "mingw32" ; then
          enable_gapcmon=yes
       fi
@@ -451,80 +450,6 @@ AC_ARG_WITH(libwrap,
       fi
    ]
 )
-
-
-dnl   
-dnl Check for enable of cgi program builds
-dnl
-ENABLE_CGI="no"
-CGI=
-GD_LIBS=
-SYS_GD_FOUND=no
-AC_ARG_ENABLE(cgi,
-   [AC_HELP_STRING([--enable-cgi], [Compile CGI programs])],
-   [ if test "$enableval" = "yes"
-     then
-        ENABLE_CGI="yes"
-        CGI=cgi
-
-        dnl
-        dnl First search for system library that defines gdImagePng
-        AC_CHECK_LIB(gd, gdImagePng,
-           [ AC_MSG_RESULT([using PNG file format.])
-             AC_DEFINE(SYS_IMGFMT_PNG,, [Define if you have gdImagePng in libgd])
-             GD_LIBS="-lgd"
-             SYS_GD_FOUND=yes ],
-           [$as_unset ac_cv_lib_gd_gdImagePng],
-           [])
-
-        dnl
-        dnl How about with libpng and libz dependencies?
-        if test "${SYS_GD_FOUND}" = "no"
-        then
-           AC_CHECK_LIB(gd, gdImagePng,
-              [ AC_MSG_RESULT([using PNG file format.])
-                AC_DEFINE(SYS_IMGFMT_PNG,, [Define if you have gdImagePng in libgd])
-                GD_LIBS="-lgd -lpng12 -lz"
-                SYS_GD_FOUND=yes ],
-              [],
-              [-lpng12 -lz])
-        fi
-
-        dnl
-        dnl Second search for system library that defines gdImageGif
-        if test "${SYS_GD_FOUND}" = "no"
-        then
-           AC_CHECK_LIB(gd, gdImageGif,
-              [ AC_MSG_RESULT([using GIF file format.])
-                AC_DEFINE(SYS_IMGFMT_GIF,, [Define if you have gdImageGif in libgd])
-                GD_LIBS="-lgd"
-                SYS_GD_FOUND=yes ],
-              [],
-              [])
-        fi
-
-        if test "${SYS_GD_FOUND}" = "no"
-        then
-           AC_MSG_ERROR([Your system lacks the GD library which is needed for
-                         compiling the apcupsd CGI programs. Please install 
-                         libgd and re-run the ./configure script.
-                         Alternatively you can disable the CGI support.])
-        fi
-
-        AC_CHECK_HEADER(gd.h, [ GDHEAD= ],
-           [ AC_CHECK_HEADER(gd/gd.h, [ GDHEAD="gd/" ],
-              [ AC_CHECK_HEADER(gd2/gd.h, [ GDHEAD="gd2/" ],
-                 [ AC_MSG_ERROR([Found system GD library but no header file.
-                                 Please find the file gd.h in your system
-                                 include directories and report its location
-                                 to apcupsd-users@lists.sourceforge.net]) ])
-              ])
-           ])
-
-         AC_SUBST(GDHEAD)
-    fi
-])
-
 
 dnl   
 dnl Check for enable of drivers
@@ -731,12 +656,6 @@ AC_ARG_WITH(nisip,
    [NISIP="$withval";])
 AC_SUBST(NISIP)
 
-
-CGIBIN="/etc/apcupsd"
-AC_ARG_WITH(cgi-bin,
-   [AC_HELP_STRING([--with-cgi-bin=DIR], [Specify cgi-bin directory (default=/etc/apcupsd)])],
-   [CGIBIN="$withval";])
-
 dnl
 dnl Check for enable of gapcmon
 dnl
@@ -875,9 +794,6 @@ AC_SUBST(RM)
 AC_SUBST(CC)
 AC_SUBST(CXX)
 AC_SUBST(LD)
-AC_SUBST(CGI)
-AC_SUBST(GD_LIBS)
-AC_SUBST(CGIBIN)
 AC_DEFINE_UNQUOTED(SYSCONFDIR, "$sysconfdir", [Default directory in which apcupsd config files are stored])
 AC_SUBST(SYSCONFDIR)
 AC_SUBST(RST2HTML)
@@ -905,15 +821,6 @@ AC_SUBST(EXTRAOBJ)
 
 dnl Check out the wait reality.  We have to assume sys/wait.h is present.
 AC_CHECK_FUNCS(wait waitpid wait3)
-
-if test "$ENABLE_CGI" = "yes"
-then
-   AC_CHECK_FUNCS( snprintf,,
-      [AC_MSG_ERROR([cannot find required function.])])
-   echo 'Enabling cgi program support...'
-else
-   echo 'Disabling cgi support...'
-fi
 
 dnl
 dnl Find out the distribution.   NOTE!!! Only determine the

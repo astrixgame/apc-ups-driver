@@ -39,7 +39,6 @@ RST2PDF :=
 prefix = /usr
 exec_prefix = ${prefix}
 sysconfdir = /etc/apcupsd
-cgibin = /etc/apcupsd
 VPATH = /usr/lib:/usr/local/lib
 srcdir = .
 abstopdir = /home/adatageadmin/apcupsd-3.14.14
@@ -67,7 +66,7 @@ EXE =
 
 # Libraries
 APCLIBS = $(topdir)/src/lib/libapc.a $(if $(WIN32),$(topdir)/src/win32/compat/libwin32compat.a)
-APCDRVLIBS =  $(topdir)/src/drivers/libdrivers.a $(topdir)/src/drivers/apcsmart/libapcsmartdrv.a $(topdir)/src/drivers/dumb/libdumbdrv.a $(topdir)/src/drivers/net/libnetdrv.a $(topdir)/src/drivers/snmplite/libsnmplitedrv.a $(topdir)/src/drivers/pcnet/libpcnetdrv.a $(topdir)/src/drivers/modbus/libmodbusdrv.a
+APCDRVLIBS =  $(topdir)/src/drivers/libdrivers.a $(topdir)/src/drivers/apcsmart/libapcsmartdrv.a $(topdir)/src/drivers/dumb/libdumbdrv.a $(topdir)/src/drivers/usb/libusbdrv.a $(topdir)/src/drivers/net/libnetdrv.a $(topdir)/src/drivers/snmplite/libsnmplitedrv.a $(topdir)/src/drivers/pcnet/libpcnetdrv.a $(topdir)/src/drivers/modbus/libmodbusdrv.a
 DRVLIBS = -lpthread 
 X_LIBS = 
 X_EXTRA_LIBS = 
@@ -90,15 +89,14 @@ BG =
 # Driver and package enable flags
 SMARTDRV   := apcsmart
 DUMBDRV    := dumb
-USBDRV     := 
+USBDRV     := usb
 NETDRV     := net
 PCNETDRV   := pcnet
 MODBUSDRV  := modbus
 MODBUSUSB  := 
 SNMPLTDRV  := snmplite
 TESTDRV    := 
-USBTYPE    := 
-CGIDIR     := 
+USBTYPE    := linux
 USBHIDDIR  := 
 GAPCMON    := 
 APCAGENT   := 

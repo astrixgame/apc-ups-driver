@@ -267,7 +267,7 @@
 #define HAVE_UNISTD_H 1
 
 /* Define if building USB driver */
-/* #undef HAVE_USB_DRIVER */
+#define HAVE_USB_DRIVER /**/
 
 /* Define to 1 if you have the `vfprintf' function. */
 #define HAVE_VFPRINTF 1

@@ -20,7 +20,7 @@ exec_prefix=${prefix}
 
 APCPID=/var/run/apcupsd.pid
 APCUPSD=/sbin/apcupsd
-SHUTDOWN=/sbin/shutdown
+SHUTDOWN=/usr/sbin/shutdown
 SCRIPTSHELL=/usr/bin/sh
 SCRIPTDIR=/etc/apcupsd
 WALL=wall

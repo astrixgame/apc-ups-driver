@@ -138,7 +138,7 @@ int main(int argc, char **argv)
    char DEFAULT_HOST[] = "localhost";
    char *host = NULL;
    const char *cmd = "status";
-   int port = NISPORT;
+   int port = 3551;
    int flags = 0;
    FILE *cfg;
    UPSINFO ups;
