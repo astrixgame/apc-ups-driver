@@ -2,7 +2,7 @@
 
 ![CodeQL](https://github.com/astrixgame/apc-ups-driver/actions/workflows/codeql.yml/badge.svg)
 ![License](https://img.shields.io/badge/License-GNU-blue)
-![OS](https://img.shields.io/badge/OS-Linux,_Windows,_Mac-LightGreen)
+![OS](https://img.shields.io/badge/OS-Linux,_Windows-LightGreen)
 ![Language](https://img.shields.io/badge/Lang-C,_C++-blue)
 
 A robust, custom-enhanced driver built upon the official APC UPS driver to integrate APC UPS systems with various software applications for precise power management and monitoring. <br><br> This driver leverages the original framework while adding tailored features to improve real-time monitoring, control, and system stability. It’s designed to optimize power management and protect critical infrastructure within the organization.
