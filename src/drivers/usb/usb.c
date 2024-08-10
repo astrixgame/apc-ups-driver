@@ -909,18 +909,12 @@ bool UsbUpsDriver::kill_power()
       if (read_int_from_ups(CI_BUPBattCapBeforeStartup, &val)) {
          func = "CI_BUPBattCapBeforeStartup";
          switch (val) {
-         case 0x3930:             /* 90% */
+         case 0x3930: /* 90% */
+         case 0x3630: /* 60% */
+         case 0x3135: /* 15% */
             write_int_to_ups(CI_BUPBattCapBeforeStartup, 2, func);
-            /* Falls thru... */
-         case 0x3630:             /* 60% */
-            write_int_to_ups(CI_BUPBattCapBeforeStartup, 2, func);
-            /* Falls thru... */
-         case 0x3135:             /* 15% */
-            write_int_to_ups(CI_BUPBattCapBeforeStartup, 2, func);
-            /* Falls thru... */
-         case 0x3030:             /* 00% */
+         case 0x3030: /* 00% */
             break;
-
          default:
             Dmsg(100, "Unknown BUPBattCapBeforeStartup value (%04x)\n", val);
             break;
@@ -1205,43 +1199,42 @@ bool UsbUpsDriver::usb_report_event(int ci, USB_VALUE *uval)
    usb_process_value(ci, uval);
 
    switch (ci) {
-   /*
-    * Some important usages cause us to abort interrupt waiting
-    * so immediate action can be taken.
-    */
-   case CI_Discharging:
-   case CI_ACPresent:
-   case CI_BelowRemCapLimit:
-   case CI_BATTLEV:
-   case CI_RUNTIM:
-   case CI_NeedReplacement:
-   case CI_ShutdownImminent:
-   case CI_BatteryPresent:
-      return true;
+      /*
+      * Some important usages cause us to abort interrupt waiting
+      * so immediate action can be taken.
+      */
+      case CI_Discharging:
+      case CI_ACPresent:
+      case CI_BelowRemCapLimit:
+      case CI_BATTLEV:
+      case CI_RUNTIM:
+      case CI_NeedReplacement:
+      case CI_ShutdownImminent:
+      case CI_BatteryPresent:
 
-   /*
-    * We don't handle these directly, but rather use them as a
-    * signal to go poll the full set of volatile data.
-    */
-   case CI_IFailure:
-   case CI_Overload:
-   case CI_PWVoltageOOR:
-   case CI_PWFrequencyOOR:
-   case CI_OverCharged:
-   case CI_OverTemp:
-   case CI_CommunicationLost:
-   case CI_ChargerVoltageOOR:
-   case CI_ChargerCurrentOOR:
-   case CI_CurrentNotRegulated:
-   case CI_VoltageNotRegulated:
-      return true;
+      /*
+      * We don't handle these directly, but rather use them as a
+      * signal to go poll the full set of volatile data.
+      */
+      case CI_IFailure:
+      case CI_Overload:
+      case CI_PWVoltageOOR:
+      case CI_PWFrequencyOOR:
+      case CI_OverCharged:
+      case CI_OverTemp:
+      case CI_CommunicationLost:
+      case CI_ChargerVoltageOOR:
+      case CI_ChargerCurrentOOR:
+      case CI_CurrentNotRegulated:
+      case CI_VoltageNotRegulated:
+         return true;
 
-   /*
-    * Anything else is relatively unimportant, so we can
-    * keep gathering data until the timeout.
-    */
-   default:
-      return false;
+      /*
+      * Anything else is relatively unimportant, so we can
+      * keep gathering data until the timeout.
+      */
+      default:
+         return false;
    }
 }
 

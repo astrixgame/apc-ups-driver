@@ -1,6 +1,13 @@
 # Changelog
 
-## [1.0.2] - 2024-XX-XX
+## [1.0.3] - 2024 09-08
+### Changed
+- Renamed apctest to apccmd (apcinfo, apccmd)
+
+### Removed
+- Removed events command in daemon (due to useless)
+
+## [1.0.2] - 2024-09-08
 ### Changed
 - Renamed apcaccess to apcinfo (apcinfo, apctest, ...)
 - Edited usage help for apcinfo command and removed useless args

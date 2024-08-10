@@ -97,7 +97,7 @@ all-uninstall:
 clean:
 	-rm -f config.status
 	-rm -f $(topdir)/src/apcinfo
-	-rm -f $(topdir)/src/apctest
+	-rm -f $(topdir)/src/apccmd
 	-rm -f $(topdir)/src/apcupsd
 	-rm -f $(topdir)/src/*.o
 	-rm -f $(topdir)/platforms/*.o

@@ -152,7 +152,7 @@ static void powerfail(int ok)
       if (terminate_on_powerfail) {
          /*
           * This sends a SIGTERM signal to itself.
-          * The SIGTERM is bound to apcupsd_ or apctest_terminate(),
+          * The SIGTERM is bound to apcupsd_ or apccmd_terminate(),
           * depending on which program is running this code, so it will
           * do in anyway the right thing.
           */

@@ -1,0 +1,41 @@
+
+
+2024-08-09 00:13:38 apccmd 3.14.14 (31 May 2016) debian
+Checking configuration ...
+apccmd FATAL ERROR in apccmd.c at line 299
+apccmd cannot continue without a valid driver.
+
+
+2024-08-09 00:14:50 apccmd 3.14.14 (31 May 2016) debian
+Checking configuration ...
+sharenet.type = Network & ShareUPS Disabled
+cable.type = USB Cable
+mode.type = USB UPS Driver
+Setting up the port ...
+Doing prep_device() ...
+
+You are using a USB cable type, so I'm entering USB test mode
+Hello, this is the apcupsd Cable Test program.
+This part of apccmd is for testing USB UPSes.
+
+Getting UPS capabilities...SUCCESS
+
+Please select the function you want to perform.
+
+1)  Test kill UPS power
+2)  Perform self-test
+3)  Read last self-test result
+4)  View/Change battery date
+5)  View manufacturing date
+6)  View/Change alarm behavior
+7)  View/Change sensitivity
+8)  View/Change low transfer voltage
+9)  View/Change high transfer voltage
+10) Perform battery calibration
+11) Test alarm
+12) View/Change self-test interval
+ Q) Quit
+
+Select function number: q
+
+2024-08-09 00:14:59 End apccmd.

@@ -217,7 +217,7 @@ int main(int argc, char *argv[])
 
    if (create_lockfile(ups) == LCKERROR) {
       Error_abort("Unable to create UPS lock file.\n"
-                   "  If apcupsd or apctest is already running,\n"
+                   "  If apcupsd or apccmd is already running,\n"
                    "  please stop it and run this program again.\n");
    }
 

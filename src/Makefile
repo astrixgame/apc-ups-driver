@@ -13,22 +13,22 @@ cgi_DIR: $(if $(WIN32),win32_DIR)
 common_srcs     := options.c device.c reports.c action.c
 apcupsd_srcs    := apcupsd.c apcnis.c
 apcinfo_srcs  := apcinfo.c
-apctest_srcs    := apctest.c
+apccmd_srcs    := apccmd.c
 
 common_obj      := $(call SRC2OBJ,$(common_srcs))
 apcupsd_obj     := $(call SRC2OBJ,$(apcupsd_srcs)) $(if $(WIN32),$(call SRC2OBJ,win32/winservice.cpp win32/winmain.cpp))
 apcinfo_obj   := $(call SRC2OBJ,$(apcinfo_srcs))
-apctest_obj     := $(call SRC2OBJ,$(apctest_srcs))
+apccmd_obj     := $(call SRC2OBJ,$(apccmd_srcs))
 
 SRCS = $(common_srcs) $(apcupsd_srcs) $(apcinfo_srcs) \
-       $(apctest_srcs)
+       $(apccmd_srcs)
 
-all-targets: apcupsd$(EXE) apcinfo$(EXE) apctest$(EXE)
+all-targets: apcupsd$(EXE) apcinfo$(EXE) apccmd$(EXE)
 
 apcupsd$(EXE): $(common_obj) $(apcupsd_obj) $(APCDRVLIBS) $(APCLIBS)
 	$(LINK) $(DRVLIBS) $(BG)
 
-apctest$(EXE): $(common_obj) $(apctest_obj) $(APCDRVLIBS) $(APCLIBS)
+apccmd$(EXE): $(common_obj) $(apccmd_obj) $(APCDRVLIBS) $(APCLIBS)
 	$(LINK) $(DRVLIBS)
 
 apcinfo$(EXE): $(apcinfo_obj) $(APCLIBS)
@@ -40,12 +40,12 @@ all-uninstall: uninstall-base
 install-base:
 	$(call MKDIR,$(sbindir))
 	$(call INSTPROG,700,apcupsd,$(sbindir)/apcupsd$(EXE))
-	$(call INSTPROG,700,apctest,$(sbindir)/apctest$(EXE))
+	$(call INSTPROG,700,apccmd,$(sbindir)/apccmd$(EXE))
 	$(call INSTPROG,755,apcinfo,$(sbindir)/apcinfo$(EXE))
 
 uninstall-base:
 	$(call UNINST,$(sbindir)/apcupsd$(EXE))
-	$(call UNINST,$(sbindir)/apctest$(EXE))
+	$(call UNINST,$(sbindir)/apccmd$(EXE))
 	$(call UNINST,$(sbindir)/apcinfo$(EXE))
 
 # Include dependencies

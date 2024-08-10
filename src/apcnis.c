@@ -24,8 +24,6 @@
 
 #include "apc.h"
 
-#ifdef HAVE_NISSERVER
-
 static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
@@ -37,12 +35,9 @@ struct s_arg {
    int newsockfd;
 };
 
-
-/* forward referenced subroutines */
 void *handle_client_request(void *arg);
 
-static void status_open(UPSINFO *ups)
-{
+static void status_open(UPSINFO *ups) {
    P(mutex);
    largebuf[0] = 0;
    stat_recs = 0;
@@ -57,8 +52,7 @@ static void status_open(UPSINFO *ups)
  * Returns -1 on error or EOF
  *          0 OK
  */
-static int status_close(UPSINFO *ups, int nsockfd)
-{
+static int status_close(UPSINFO *ups, int nsockfd) {
    int i;
    char buf[MAXSTRING];
    char *sptr, *eptr;
@@ -67,16 +61,16 @@ static int status_close(UPSINFO *ups, int nsockfd)
    asnprintf(buf, sizeof(buf), "APC      : %03d,%03d,%04d\n",
       STAT_REV, stat_recs, i);
 
-   if (net_send(nsockfd, buf, strlen(buf)) <= 0) {
+   if(net_send(nsockfd, buf, strlen(buf)) <= 0) {
       V(mutex);
       return -1;
    }
 
    sptr = eptr = largebuf;
-   for (; i > 0; i--) {
-      if (*eptr == '\n') {
+   for(; i > 0; i--) {
+      if(*eptr == '\n') {
          eptr++;
-         if (net_send(nsockfd, sptr, eptr - sptr) <= 0)
+         if(net_send(nsockfd, sptr, eptr - sptr) <= 0)
             break;
          sptr = eptr;
       } else {
@@ -84,7 +78,7 @@ static int status_close(UPSINFO *ups, int nsockfd)
       }
    }
 
-   if (net_send(nsockfd, NULL, 0) < 0) {
+   if(net_send(nsockfd, NULL, 0) < 0) {
       V(mutex);
       return -1;
    }
@@ -93,14 +87,11 @@ static int status_close(UPSINFO *ups, int nsockfd)
    return 0;
 }
 
-
-
 /*
  * Buffer up the status messages so that they can be sent
  * by the status_close() routine over the network.
  */
-static void status_write(UPSINFO *ups, const char *fmt, ...)
-{
+static void status_write(UPSINFO *ups, const char *fmt, ...) {
    va_list ap;
    int i;
    char buf[MAXSTRING];
@@ -109,7 +100,7 @@ static void status_write(UPSINFO *ups, const char *fmt, ...)
    avsnprintf(buf, sizeof(buf), fmt, ap);
    va_end(ap);
 
-   if ((i = (strlen(largebuf) + strlen(buf))) < (int)(sizeof(largebuf) - 1)) {
+   if((i = (strlen(largebuf) + strlen(buf))) < (int)(sizeof(largebuf) - 1)) {
       strlcat(largebuf, buf, sizeof(largebuf));
       stat_recs++;
    } else {
@@ -119,11 +110,10 @@ static void status_write(UPSINFO *ups, const char *fmt, ...)
 }
 
 
-void do_server(UPSINFO *ups)
-{
+void do_server(UPSINFO *ups) {
    int newsockfd, sockfd;
-   struct sockaddr_in cli_addr;    /* client's address */
-   struct sockaddr_in serv_addr;   /* our address */
+   struct sockaddr_in cli_addr;
+   struct sockaddr_in serv_addr;
    int tlog;
    struct s_arg *arg;
    struct in_addr local_ip;
@@ -131,8 +121,8 @@ void do_server(UPSINFO *ups)
    int turnon = 1;
 #endif
 
-   for (tlog = 0; (ups = attach_ups(ups)) == NULL; tlog -= 5 * 60) {
-      if (tlog <= 0) {
+   for(tlog = 0; (ups = attach_ups(ups)) == NULL; tlog -= 5 * 60) {
+      if(tlog <= 0) {
          tlog = 60 * 60;
          log_event(ups, LOG_ERR, "apcserver: Cannot attach SYSV IPC.\n");
       }
@@ -141,16 +131,16 @@ void do_server(UPSINFO *ups)
 
    local_ip.s_addr = INADDR_ANY;
 
-   if (ups->nisip[0]) {
-      if (inet_pton(AF_INET, ups->nisip, &local_ip) != 1) {
+   if(ups->nisip[0]) {
+      if(inet_pton(AF_INET, ups->nisip, &local_ip) != 1) {
          log_event(ups, LOG_WARNING, "Invalid NISIP specified: '%s'", ups->nisip);
          local_ip.s_addr = INADDR_ANY;
       }
    }
 
    /* Open a TCP socket */
-   for (tlog = 0; (sockfd = socket_cloexec(AF_INET, SOCK_STREAM, 0)) < 0; tlog -= 5 * 60) {
-      if (tlog <= 0) {
+   for(tlog = 0; (sockfd = socket_cloexec(AF_INET, SOCK_STREAM, 0)) < 0; tlog -= 5 * 60) {
+      if(tlog <= 0) {
          tlog = 60 * 60;
          log_event(ups, LOG_ERR, "apcserver: cannot open stream socket");
       }
@@ -159,7 +149,7 @@ void do_server(UPSINFO *ups)
 
    /* Reuse old sockets */
 #ifndef HAVE_MINGW
-   if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (void*)&turnon, sizeof(turnon)) < 0) {
+   if(setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, (void*)&turnon, sizeof(turnon)) < 0) {
       log_event(ups, LOG_WARNING, "Cannot set SO_REUSEADDR on socket: %s\n",
          strerror(errno));
    }
@@ -171,9 +161,9 @@ void do_server(UPSINFO *ups)
    serv_addr.sin_addr = local_ip;
    serv_addr.sin_port = htons(ups->statusport);
 
-   for (tlog = 0; bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0;
+   for(tlog = 0; bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0;
       tlog -= 5 * 60) {
-      if (tlog <= 0) {
+      if(tlog <= 0) {
          tlog = 60 * 60;
          log_event(ups, LOG_ERR, "apcserver: cannot bind port %d. ERR=%s",
             ups->statusport, strerror(errno));
@@ -184,10 +174,10 @@ void do_server(UPSINFO *ups)
 
    log_event(ups, LOG_INFO, "NIS server startup succeeded");
 
-   for (;;) {
+   for(;;) {
       /* Wait for a connection from a client process. */
-      for (tlog = 0; (newsockfd = net_accept(sockfd, &cli_addr)) < 0; tlog -= 5 * 60) {
-         if (tlog <= 0) {
+      for(tlog = 0; (newsockfd = net_accept(sockfd, &cli_addr)) < 0; tlog -= 5 * 60) {
+         if(tlog <= 0) {
             tlog = 60 * 60;
             log_event(ups, LOG_ERR, "apcserver: accept error. ERR=%s",
                strerror(errno));
@@ -200,7 +190,7 @@ void do_server(UPSINFO *ups)
        * This function checks the incoming client and if it's not
        * allowed closes the connection.
        */
-      if (check_wrappers(argvalue, newsockfd) == FAILURE) {
+      if(check_wrappers(argvalue, newsockfd) == FAILURE) {
          net_close(newsockfd);
          continue;
       }
@@ -223,58 +213,36 @@ void do_server(UPSINFO *ups)
  * Return when the connection is terminated or there
  * is an error.
  */
-void *handle_client_request(void *arg)
-{
+void *handle_client_request(void *arg) {
    int len;
-   FILE *events_file;
    char line[MAXSTRING];
    const char errmsg[] = "Invalid command\n";
-   const char notavail[] = "Not available\n";
    const char notrun[] = "Apcupsd internal error\n";
    int nsockfd = ((struct s_arg *)arg)->newsockfd;
    UPSINFO *ups = ((struct s_arg *)arg)->ups;
-   int fd;
    free(arg);
 
    pthread_detach(pthread_self());
 
-   if ((ups = attach_ups(ups)) == NULL) {
+   if((ups = attach_ups(ups)) == NULL) {
       net_send(nsockfd, notrun, sizeof(notrun));
       net_send(nsockfd, NULL, 0);
       net_close(nsockfd);
       return NULL;
    }
 
-   for (;;) {
-      /* Read command */
-      if ((len = net_recv(nsockfd, line, sizeof(line))) <= 0)
-         break;                    /* connection terminated */
+   for(;;) {
+      if((len = net_recv(nsockfd, line, sizeof(line))) <= 0)
+         break;
 
-      if (len == 6 && strncmp("status", line, 6) == 0) {
-         if (output_status(ups, nsockfd, status_open, status_write,
+      if(len == 6 && strncmp("status", line, 6) == 0) {
+         if(output_status(ups, nsockfd, status_open, status_write,
                status_close) < 0) {
             break;
          }
-      } else if (len == 6 && strncmp("events", line, 6) == 0) {
-         if (ups->eventfile[0] == 0 ||
-             (fd = open(ups->eventfile, O_RDONLY|O_CLOEXEC)) == -1 ||
-             (events_file = fdopen(fd, "r")) == NULL) {
-            net_send(nsockfd, notavail, sizeof(notavail));
-            if (net_send(nsockfd, NULL, 0) < 0)
-               break;
-         } else {
-            int stat = output_events(nsockfd, events_file);
-
-            fclose(events_file);
-            if (stat < 0) {
-               net_send(nsockfd, notavail, sizeof(notavail));
-               net_send(nsockfd, NULL, 0);
-               break;
-            }
-         }
       } else {
          net_send(nsockfd, errmsg, sizeof(errmsg));
-         if (net_send(nsockfd, NULL, 0) < 0)
+         if(net_send(nsockfd, NULL, 0) < 0)
             break;
       }
    }
@@ -284,52 +252,3 @@ void *handle_client_request(void *arg)
    detach_ups(ups);
    return NULL;
 }
-
-#else   /* HAVE_NISSERVER */
-
-void do_server(UPSINFO *ups)
-{
-   log_event(ups, LOG_ERR, "apcserver: code not enabled in config.\n");
-   exit(1);
-}
-
-#endif   /* HAVE_NISSERVER */
-
-
-#ifdef HAVE_LIBWRAP
-
-/*
- * Unfortunately this function is also used by the old network code
- * so for now compile it in anyway.
- */
-int allow_severity = LOG_INFO;
-int deny_severity = LOG_WARNING;
-
-int check_wrappers(char *av, int newsock)
-{
-   struct request_info req;
-   char *av0;
-
-   av0 = strrchr(av, '/');
-   if (av0)
-      av0++;                       /* strip everything before and including / */
-   else
-      av0 = av;
-
-   request_init(&req, RQ_DAEMON, av0, RQ_FILE, newsock, NULL);
-   fromhost(&req);
-
-   if (!hosts_access(&req)) {
-      log_event(core_ups, LOG_WARNING,
-         "Connection from %.500s refused by tcp_wrappers.", eval_client(&req));
-      return FAILURE;
-   }
-
-#ifdef I_WANT_LOTS_OF_LOGGING
-   log_event(core_ups, LOG_NOTICE, "connect from %.500s", eval_client(&req));
-#endif
-
-   return SUCCESS;
-}
-
-#endif   /* HAVE_LIBWRAP */
