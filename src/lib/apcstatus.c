@@ -25,11 +25,7 @@
 #include "apc.h"
 
 /* Send the full status of the UPS to the client. */
-int output_status(UPSINFO *ups, int sockfd,
-   void s_open(UPSINFO *ups),
-   void s_write(UPSINFO *ups, const char *fmt, ...),
-   int s_close(UPSINFO *ups, int sockfd))
-{
+int output_status(UPSINFO *ups, int sockfd, void s_open(UPSINFO *ups), void s_write(UPSINFO *ups, const char *fmt, ...), int s_close(UPSINFO *ups, int sockfd)) {
    char datetime[100];
    char buf[MAXSTRING];
    time_t now = time(NULL);
@@ -56,11 +52,7 @@ int output_status(UPSINFO *ups, int sockfd,
    format_date(ups->poll_time, datetime, sizeof(datetime));
    s_write(ups, "DATE     : %s\n", datetime);
 
-   gethostname(buf, sizeof buf);
-   s_write(ups, "HOSTNAME : %s\n", buf);
-   s_write(ups, "VERSION  : " APCUPSD_RELEASE " (" ADATE ") " APCUPSD_HOST "\n");
-
-   if (*ups->upsname)
+   if(*ups->upsname)
       s_write(ups, "UPSNAME  : %s\n", ups->upsname);
 
    s_write(ups, "CABLE    : %s\n", ups->cable.long_name);

@@ -236,10 +236,8 @@ void *handle_client_request(void *arg) {
          break;
 
       if(len == 6 && strncmp("status", line, 6) == 0) {
-         if(output_status(ups, nsockfd, status_open, status_write,
-               status_close) < 0) {
+         if(output_status(ups, nsockfd, status_open, status_write, status_close) < 0)
             break;
-         }
       } else {
          net_send(nsockfd, errmsg, sizeof(errmsg));
          if(net_send(nsockfd, NULL, 0) < 0)
