@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.0.3] - 2024 09-08
+## [1.0.3] - 2024 10-08
 ### Changed
 - Renamed apctest to apccmd (apcinfo, apccmd)
 
